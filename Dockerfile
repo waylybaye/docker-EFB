@@ -31,6 +31,13 @@ RUN set -ex \
         && pip3 install -r /opt/ehForwarderBot/requirements.txt \
         && rm -rf /root/.cache
 
+VOLUME /data
+RUN mkdir /data \
+    && touch /data/config.py \
+    && touch /data/tgdata.db \
+    && ln -s /data/config.py /opt/ehForwarderBot/config.py \
+    && ln -s /data/tgdata.db /opt/ehForwarderBot/plugins/eh_telegram_master/tgdata.db 
+    
 WORKDIR /opt/ehForwarderBot
 
 CMD ["python3", "main.py"]
